@@ -1,0 +1,30 @@
+networks:
+  app:
+    driver: bridge
+    internal: false
+
+services:
+  comfy:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    networks:
+      - app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - '7860'
+      - '8188'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./models:/home/user/app/models:rw
+      - ./custom_nodes:/home/user/app/custom_nodes:rw
+      - ./output:/home/user/app/output:rw
+      - ./user:/home/user/app/user
