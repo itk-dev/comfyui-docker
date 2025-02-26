@@ -12,9 +12,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && git lfs install
 
-WORKDIR /code
-
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
 # User
 RUN useradd -m -u 1042 user
@@ -35,8 +34,6 @@ RUN pyenv install $PYTHON_VERSION && \
     pip install --no-cache-dir \
     datasets \
     huggingface-hub "protobuf<4" "click<8.1"
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 WORKDIR $HOME/app
 
