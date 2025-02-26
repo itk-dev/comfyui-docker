@@ -1,0 +1,7 @@
+.env.docker.local
+
+# Ignore data
+custom_nodes
+models
+output
+user
