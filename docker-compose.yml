@@ -1,4 +1,6 @@
 networks:
+  frontend:
+    external: true
   app:
     driver: bridge
     internal: false
@@ -11,6 +13,7 @@ services:
     restart: unless-stopped
     networks:
       - app
+      - frontend
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
