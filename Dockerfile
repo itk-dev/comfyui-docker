@@ -9,12 +9,10 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev git git-lfs  \
     ffmpeg libsm6 libxext6 cmake libglx-mesa0 \
-    pip \
     && rm -rf /var/lib/apt/lists/* \
     && git lfs install
 
 COPY ./requirements.txt /requirements.txt
-RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
 # User
 RUN useradd -m -u 1042 user
@@ -35,6 +33,8 @@ RUN pyenv install $PYTHON_VERSION && \
     pip install --no-cache-dir \
     datasets \
     huggingface-hub "protobuf<4" "click<8.1"
+
+RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 
 WORKDIR $HOME/app
 
