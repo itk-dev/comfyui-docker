@@ -15,7 +15,6 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - '7860'
-      - '8188'
     deploy:
       resources:
         reservations:
@@ -28,3 +27,12 @@ services:
       - ./custom_nodes:/home/user/app/custom_nodes:rw
       - ./output:/home/user/app/output:rw
       - ./user:/home/user/app/user
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=frontend"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.rule=Host(`${COMPOSE_SERVER_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.entrypoints=web"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-http.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${COMPOSE_SERVER_DOMAIN}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=websecure
