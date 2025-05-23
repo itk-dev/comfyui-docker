@@ -1,4 +1,10 @@
 httpx
-Crypto
 ollama
+
+# Used by login extension
+aiohttp
+aiohttp_session[secure]
+Jinja2
+bcrypt
 pycryptodome
+Crypto

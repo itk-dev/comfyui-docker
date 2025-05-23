@@ -39,8 +39,8 @@ RUN pip install --no-cache-dir --upgrade -r /requirements.txt
 WORKDIR $HOME/app
 
 # Copy the current directory contents into the container at $HOME/app setting the owner to the user
-RUN git clone https://github.com/comfyanonymous/ComfyUI . && \
-    pip install xformers!=0.0.18 --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu121
+RUN git clone https://github.com/comfyanonymous/ComfyUI . \
+ && pip install xformers!=0.0.18 --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu121
 
 # ComfyUI Manager
 RUN cd custom_nodes && git clone https://github.com/ltdrdata/ComfyUI-Manager.git
